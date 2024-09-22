@@ -1,12 +1,12 @@
-CC = riscv64-unknown-linux-musl-gcc
+CC ?= riscv64-unknown-linux-musl-gcc
 
 source  = duo_pinmux.c devmem.c
 object  = $(source:%.cc=%.o)
 
-CFLAGS += -mcpu=c906fdv -march=rv64imafdcv0p7xthead -mcmodel=medany -mabi=lp64d -static
+CFLAGS ?= -mcpu=c906fdv -march=rv64imafdcv0p7xthead -mcmodel=medany -mabi=lp64d -static
 
 all: $(object)
-	$(CC) $(CFLAGS) $(object) -o duo-pinmux
+	$(CC) $(CFLAGS) $(object) -o duo-pinmux $(LDFLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
